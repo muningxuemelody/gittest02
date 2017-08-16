@@ -1,0 +1,406 @@
+// 块作用域 - let
+if(true) {
+  let fruit = 'apple';
+}
+console.log(fruit);
+
+// 衡量 - const
+const fruit = 'apple';
+console.log(fruit);
+const fruit = 'lemon';
+
+const fruit = [];
+fruit.push('apple');
+fruit = [];
+
+// 解构数组 - Array Destructuring
+function breakfast() {
+  return ['cake', 'tea', 'apple'];
+}
+
+var tmp = breakfast(),
+  dessert = tmp[0], drink = tmp[1], fruit = tmp[2];
+
+let [dessert, drink, fruit] = breakfast();
+
+console.log(dessert, drink, fruit);
+
+// 解构对象 - Object Destructuring
+function breakfast() {
+    return {
+        dessert: 'cake',
+        drink: 'tea',
+        fruit: 'apple'
+    }
+}
+
+let {
+    dessert: dessert, drink: drink, fruit: fruit
+} = breakfast();
+
+console.log(dessert, drink, fruit);
+
+// 模板字符串 - Template Strings
+let dessert = 'cake',
+    drink = 'tea';
+
+// let breakfast = '今天的早餐是：' + dessert + ' 与 ' + drink + "!";
+
+let breakfast = `今天的早餐是：${dessert} 与 ${drink} !`;
+
+console.log(breakfast);
+
+// 带标签的模板字符串 - Tagged
+let dessert = 'cake',
+    drink = 'tea';
+
+let breakfast = kitchen`今天的早餐是 \n ${dessert} 与 ${drink} !`;
+
+function kitchen(strings, ...values) {
+  // console.log(strings);
+  // console.log(values);
+  let result = '';
+  for(var i = 0; i < values.length; i++) {
+    result += strings[i];
+    result += values[i];
+  }
+  result += strings[strings.length - 1];
+
+  return result;
+}
+
+console.log(breakfast);
+
+// 判断字符串里是否包含其它的字符串
+let dessert = 'cake',
+    drink = 'tea';
+
+let breakfast = `今天的早餐是 \n
+    ${dessert} 与 ${drink} !`;
+
+console.log(
+  breakfast.startsWith('今天'),
+  breakfast.endsWith('!'),
+  breakfast.includes('apple')
+);
+
+// 默认参数
+function breakfast (dessert = 'cack', drink = 'tea') {
+  return `${dessert} ${drink}`;
+}
+
+console.log(breakfast(
+  'bread', 'bear'
+));
+
+// 展开操作符
+let fruits = ['apple', 'banana'],
+    foods = [...fruits, 'bread'];
+
+console.log(fruits);
+console.log(...fruits);
+console.log(foods);
+
+// 剩余操作符
+function breakfast(dessert, drink, ...foods) {
+  console.log(dessert, drink, ...foods);
+}
+breakfast('cake', 'bear', 'apple', 'pear');
+
+// 解构参数
+function breakfast(dessert, drink, {location, restaurant} = {}) {
+  console.log(dessert, drink, location, restaurant);
+}
+breakfast('cake', 'bear', {location: '毛毛家', restaurant: '彭展'});
+
+// 函数的名字
+let breakfast = function supperBreakfast(argument) {
+
+}
+console.log(breakfast.name);
+
+// 箭头函数
+let breakfast = (dessert, drink) => {
+  return dessert + drink;
+}
+
+console.log(breakfast('cake', 'drink'));
+
+// 对象表达式
+let dessert = 'cake', drink = 'bear';
+let food = {
+  dessert,
+  drink,
+  breakfast(){}
+}
+console.log(food);
+
+// 对象属性名
+let food = {};
+let drink = 'hot drink';
+
+food.dessert = 'cake';
+food[drink] = 'tea';
+
+console.log(food);
+
+// 对比两个值是否相等
++0 == -0
++0 === -0
+NaN == NaN
+Object.is(NaN, NaN);
+Object.is(+0, -0);
+
+// 把对象的值复制到另一个对象里
+let breakfast = {};
+
+Object.assign(
+  breakfast,
+  {drink: 'bear'},
+  {drink: 'tea'}
+);
+
+console.log(breakfast);
+
+// 设置对象的 prototype
+let breakfast = {
+  getDrink() {
+    return 'tea';
+  }
+};
+
+let dinner = {
+  getDrink() {
+    return 'bear';
+  }
+};
+
+let sunday = Object.create(breakfast);
+console.log(sunday.getDrink());
+console.log(Object.getPrototypeOf(sunday) === breakfast);
+
+Object.setPrototypeOf(sunday, dinner);
+console.log(sunday.getDrink());
+console.log(Object.getPrototypeOf(sunday) === dinner);
+
+// __proto__
+let breakfast = {
+  getDrink() {
+    return 'tea';
+  }
+};
+
+let dinner = {
+  getDrink() {
+    return 'bear';
+  }
+};
+
+let sunday = {
+  __proto__: breakfast
+}
+
+console.log(sunday.getDrink());
+console.log(Object.getPrototypeOf(sunday) === breakfast);
+sunday.__proto__ = dinner;
+console.log(Object.getPrototypeOf(sunday) === dinner);
+
+// supper
+'use strict';
+let beakfast = {
+ getDrink() {
+ }
+
+// supper
+// let breakfast = {
+//   getDrink() {
+//     return 'tea';
+//   }
+// };
+//
+// let dinner = {
+//   getDrink() {
+//     return 'bear';
+//   }
+// };
+//
+// let sunday = {
+//   __proto__: breakfast,
+//   getDrink() {
+//     return super.getDrink() + ' milk'
+//   }
+// }
+//
+// console.log(sunday.getDrink());
+
+// 迭代器
+// function chef(foods) {
+//   let i  = 0;
+//   return {
+//     next() {
+//       let done = (i >= foods.length);
+//       let value = !done ? foods[i++] : undefined;
+//       return {
+//         value: value,
+//         done: done
+//       }
+//     }
+//   }
+// }
+//
+// let gp = chef(['tommato', 'egg']);
+// console.log(gp.next());
+// console.log(gp.next());
+// console.log(gp.next());
+
+// class 类
+
+// class Chef {
+//   constructor(food) {
+//     this.food = food;
+//   }
+//
+//   cook() {
+//     console.log(this.food);
+//   }
+// }
+//
+// let gp = new Chef('tommato');
+// gp.cook();
+
+
+//get set
+// class Chef {
+//   constructor(food) {
+//     this.food = food;
+//     this.dish = [];
+//   }
+//
+//   get menu() {
+//     return this.dish;
+//   }
+//
+//   set menu(dish) {
+//     this.dish.push(dish);
+//   }
+//
+//   cook() {
+//     console.log(this.food);
+//   }
+// }
+//
+// let gp = new Chef();
+// console.log(gp.menu = 'tommato');
+// console.log(gp.menu = 'pizza');
+// console.log(gp.menu);
+
+// 静态方法
+// class Chef {
+//   constructor(food) {
+//     this.food = food;
+//     this.dish = [];
+//   }
+//
+//   get menu() {
+//     return this.dish;
+//   }
+//
+//   set menu(dish) {
+//     this.dish.push(dish);
+//   }
+//
+//   static cook(food) {
+//     console.log(food);
+//   }
+// }
+//
+// Chef.cook('tommato');
+
+// 继承
+// class Person {
+//   constructor(name, birthdaty) {
+//     this.name = name;
+//     this.birthdaty = birthdaty;
+//   }
+//
+//   intro() {
+//     return `${this.name}, ${this.birthdaty}`;
+//   }
+// }
+//
+// class Chef extends Person {
+//   constructor(name, birthdaty) {
+//     super(name, birthdaty);
+//   }
+// }
+//
+// let gp = new Chef('wanghao', '1984-02-06');
+// console.log(gp.intro());
+
+// set
+// let desserts = new Set(['apple','cake', 'milk']);
+// console.log(desserts);
+// console.log(desserts.size);
+// console.log(desserts.has('apple'));
+// desserts.delete('apple');
+// console.log(desserts);
+// desserts.forEach(dessert => {
+//   console.log(dessert);
+// });
+// desserts.clear();
+// console.log(desserts);
+
+// map
+// let food = new Map();
+// let fruit = {}, cook = function() {}, dessert = '甜点';
+// food.set(fruit, 'lemon');
+// food.set(cook, 'fork');
+// food.set(dessert, 'cake');
+// console.log(food);
+// console.log(food.size);
+// console.log(food.get(fruit));
+// console.log(food.get(cook));
+// food.delete(dessert);
+// console.log(food.has(dessert));
+// food.forEach((value, key) => {
+//   console.log(`${key} = ${value}`);
+// });
+// food.clear();
+// console.log(food);
+
+// 模块
+chef.js
+
+'use strict';
+
+let fruit = 'lemon';
+let dessert = 'cake';
+
+// export default function dinner(fruit, dessert) {
+//   console.log(`今天的晚餐是：${fruit} 与 ${dessert}`);
+// }
+
+function dinner(fruit, dessert) {
+  console.log(`今天的晚餐是：${fruit} 与 ${dessert}`);
+}
+
+// export {
+//     fruit,
+//     dessert,
+//     dinner as supper
+// };
+
+export {dinner as default};
+
+app.js
+
+// import {fruit, dessert, supper as dinner} from './chef';
+
+import chef from './chef';
+
+// import * as chef from './chef';
+
+// console.log(chef.fruit, chef.dessert);
+// dinner(fruit, dessert);
+
+chef('apple', 'cake');

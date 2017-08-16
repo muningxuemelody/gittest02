@@ -42,7 +42,7 @@ module.exports = {
 
   devServer: {
     contentBase: __dirname + '/prd',
-    port: 8003,
+    port: 8004,
     host: 'localhost',
     proxy: {
       '/api': {
